@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="dashboard-hero">
+    <div class="hero-copy">
+        <p class="hero-kicker">Your banking overview</p>
+        <h1>Welcome to Kashi Bank</h1>
+        <p>Everyday banking, made clear. Review your accounts, keep an eye on activity, and manage your branch operations from one place.</p>
+    </div>
+</section>
+
+<div class="cards">
+    <div class="card"><div class="card-label">Customers</div><span>{{ stats.customers }}</span>Registered clients</div>
+    <div class="card"><div class="card-label">Accounts</div><span>{{ stats.accounts }}</span>Active accounts</div>
+    <div class="card"><div class="card-label">Total balance</div><span>{{ stats.total_balance | money }}</span>Across all accounts</div>
+    <div class="card"><div class="card-label">Transactions</div><span>{{ stats.transactions }}</span>Processed to date</div>
+    <div class="card"><div class="card-label">Loans</div><span>{{ stats.loans }}</span>Currently active</div>
+</div>
+
+<div class="actions">
+    <a class="btn" href="{{ url_for('new_customer') }}">Register New Customer</a>
+    <a class="btn secondary" href="{{ url_for('new_account') }}">Open Account</a>
+    <a class="btn secondary" href="{{ url_for('deposit') }}">Deposit</a>
+    <a class="btn secondary" href="{{ url_for('transfer') }}">Transfer</a>
+</div>
+
+<div class="title-row">
+    <div>
+        <h2>Recent Transactions</h2>
+        <p class="muted">A quick look at the latest account activity.</p>
+    </div>
+    <a class="btn secondary small" href="{{ url_for('transactions') }}">View history</a>
+</div>
+{% include "_transactions_table.html" with context %}
+{% endblock %}

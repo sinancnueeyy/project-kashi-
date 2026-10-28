@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Transaction History{% endblock %}
+{% block content %}
+<h1>Transaction History</h1>
+<form method="GET" class="inline-form">
+    <label>Filter by account:
+        <select name="account_id">
+            <option value="">-- All accounts (latest 100) --</option>
+            {% for a in accounts %}
+            <option value="{{ a.AccountID }}" {% if a.AccountID == selected %}selected{% endif %}>{{ a.AccountNumber }} - {{ a.Holders }}</option>
+            {% endfor %}
+        </select>
+    </label>
+    <button class="btn secondary" type="submit">Show</button>
+</form>
+{% include "_transactions_table.html" %}
+{% endblock %}

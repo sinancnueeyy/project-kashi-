@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Loans{% endblock %}
+{% block content %}
+<div class="title-row"><h1>Loans</h1><a class="btn" href="{{ url_for('new_loan') }}">+ New Loan</a></div>
+<div class="table-wrap">
+<table>
+    <tr><th>ID</th><th>Customer</th><th>Type</th><th>Amount</th><th>Rate</th><th>Months</th><th>EMI</th><th>Paid</th><th>Outstanding</th><th>Status</th><th>Pay</th></tr>
+    {% for l in loans %}
+    <tr>
+        <td>{{ l.LoanID }}</td><td>{{ l.CustomerName }}</td><td>{{ l.LoanType }}</td>
+        <td>{{ l.LoanAmount | money }}</td><td>{{ l.InterestRate }}%</td><td>{{ l.TenureMonths }}</td>
+        <td>{{ l.EMI | money }}</td><td>{{ l.TotalPaid | money }}</td><td>{{ l.Outstanding | money }}</td>
+        <td><span class="tag {{ l.LoanStatus|lower }}">{{ l.LoanStatus }}</span></td>
+        <td>
+            {% if l.LoanStatus == 'Active' %}
+            <form method="POST" action="{{ url_for('pay_loan', loan_id=l.LoanID) }}" class="mini-form">
+                <input type="number" name="amount" min="1" step="0.01" placeholder="Amount" required>
+                <select name="mode"><option>Cash</option><option>UPI</option><option>NetBanking</option><option>Cheque</option></select>
+                <button class="btn small" type="submit">Pay</button>
+            </form>
+            {% else %}-{% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

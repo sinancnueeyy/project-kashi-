@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Accounts{% endblock %}
+{% block content %}
+<div class="title-row"><h1>Accounts</h1><a class="btn" href="{{ url_for('new_account') }}">+ Open Account</a></div>
+<div class="table-wrap">
+<table>
+    <tr><th>Account No.</th><th>Type</th><th>Holder(s)</th><th>Branch</th><th>Balance</th><th>Status</th></tr>
+    {% for a in accounts %}
+    <tr>
+        <td><a href="{{ url_for('account_detail', account_id=a.AccountID) }}">{{ a.AccountNumber }}</a></td>
+        <td>{{ a.AccountType }}</td>
+        <td>{{ a.Holders }}</td>
+        <td>{{ a.BranchName }}</td>
+        <td>{{ a.Balance | money }}</td>
+        <td><span class="tag {{ a.Status|lower }}">{{ a.Status }}</span></td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

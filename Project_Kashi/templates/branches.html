@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Branches{% endblock %}
+{% block content %}
+<h1>Branches</h1>
+<div class="table-wrap">
+<table>
+    <tr><th>ID</th><th>Name</th><th>IFSC</th><th>Address</th><th>City</th><th>State</th><th>Contact</th><th>Employees</th><th>Accounts</th></tr>
+    {% for b in branches %}
+    <tr><td>{{ b.BranchID }}</td><td>{{ b.BranchName }}</td><td>{{ b.IFSCCode }}</td><td>{{ b.Address }}</td>
+        <td>{{ b.City }}</td><td>{{ b.State }}</td><td>{{ b.ContactNumber }}</td><td>{{ b.Employees }}</td><td>{{ b.Accounts }}</td></tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

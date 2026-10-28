@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Account {{ acc.AccountNumber }}{% endblock %}
+{% block content %}
+<h1>Account {{ acc.AccountNumber }}</h1>
+<div class="cards">
+    <div class="card"><span>{{ acc.Balance | money }}</span>Balance</div>
+    <div class="card"><span>{{ acc.AccountType }}</span>Type</div>
+    <div class="card"><span>{{ acc.Status }}</span>Status</div>
+</div>
+<p><b>Holder(s):</b> {{ acc.Holders }} &nbsp;|&nbsp; <b>Branch:</b> {{ acc.BranchName }}</p>
+
+<form method="POST" action="{{ url_for('change_status', account_id=acc.AccountID) }}" class="inline-form">
+    <label>Change status:
+        <select name="status">
+            <option>Active</option><option>Inactive</option><option>Close</option>
+        </select>
+    </label>
+    <button class="btn secondary" type="submit">Update</button>
+</form>
+
+<h2>Transaction History</h2>
+{% set recent = history %}
+{% include "_transactions_table.html" %}
+{% endblock %}

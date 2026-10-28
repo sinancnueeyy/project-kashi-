@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<h1>SQL Reports - 10 Business Problems</h1>
+<p class="muted">Each report is a real SQL query running on the database. The query is shown below each title (useful in the viva!).</p>
+{% for r in results %}
+<h2>{{ loop.index }}. {{ r.title }}</h2>
+<pre class="sql">{{ r.sql }}</pre>
+<div class="table-wrap">
+<table>
+    <tr>{% for col in r.columns %}<th>{{ col }}</th>{% endfor %}</tr>
+    {% for row in r.rows %}
+    <tr>{% for col in r.columns %}<td>{{ row[col] }}</td>{% endfor %}</tr>
+    {% else %}
+    <tr><td class="muted">No rows (nothing matches this query right now).</td></tr>
+    {% endfor %}
+</table>
+</div>
+{% endfor %}
+{% endblock %}

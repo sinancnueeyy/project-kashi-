@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Register Customer{% endblock %}
+{% block content %}
+<h1>Register New Customer</h1>
+<form method="POST" class="form">
+    <div class="row">
+        <label>First Name <input type="text" name="first_name" required></label>
+        <label>Last Name <input type="text" name="last_name" required></label>
+    </div>
+    <div class="row">
+        <label>Date of Birth <input type="date" name="dob" max="{{ today }}" required></label>
+        <label>Gender
+            <select name="gender" required>
+                <option value="">-- Select --</option>
+                <option>Male</option><option>Female</option><option>Other</option>
+            </select>
+        </label>
+    </div>
+    <div class="row">
+        <label>Mobile (10 digits) <input type="text" name="mobile" pattern="[0-9]{10}" maxlength="10" required></label>
+        <label>Email <input type="email" name="email" required></label>
+    </div>
+    <label>Address <input type="text" name="address" required></label>
+    <label>City <input type="text" name="city" required></label>
+    <button class="btn" type="submit">Register Customer</button>
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% set rows = recent if recent is defined else rows %}
+<div class="table-wrap">
+<table>
+    <tr><th>ID</th><th>Account</th><th>Type</th><th>Amount</th><th>Date</th><th>Description</th><th>Reference</th><th>Status</th></tr>
+    {% for t in rows %}
+    <tr>
+        <td>{{ t.TransactionID }}</td>
+        <td><a href="{{ url_for('account_detail', account_id=t.AccountID) }}">{{ t.AccountNumber }}</a></td>
+        <td><span class="tag {{ t.TransactionType|lower }}">{{ t.TransactionType }}</span></td>
+        <td>{{ t.Amount | money }}</td>
+        <td>{{ t.TransactionDate.strftime('%d %b %Y %H:%M') }}</td>
+        <td>{{ t.Description }}</td>
+        <td class="small">{{ t.ReferenceNumber }}</td>
+        <td>{{ t.TransactionStatus }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="8" class="muted">No transactions yet.</td></tr>
+    {% endfor %}
+</table>
+</div>
